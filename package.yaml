@@ -1,0 +1,12 @@
+name: cli-options-args
+version: 0.0.1.0
+ghc-options: -Wall -Werror -Wno-unused-matches -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-import-lists
+
+dependencies: 
+  - base
+
+executables:
+  cli-options-args:
+    source-dirs: src
+    main: Main.hs 
+
