@@ -4,6 +4,7 @@ ghc-options: -Wall -Werror -Wno-unused-matches -Wincomplete-uni-patterns -Wincom
 
 dependencies: 
   - base
+  - optparse-applicative
 
 executables:
   cli-options-args:
