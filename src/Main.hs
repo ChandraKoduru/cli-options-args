@@ -6,6 +6,7 @@ import System.IO (writeFile)
 import Data.Semigroup ((<>))
 import Options.Applicative (execParser, info, helper, Parser, fullDesc, 
   progDesc, short, metavar, flag, argument, str, option)
+import System.IO (Handle, stdin, stdout, hPutStrLn, hGetLine)
 
 data CommandOptions = CommandOptions
   { fileName :: FilePath
@@ -27,32 +28,32 @@ parseOptions = execParser $ info (helper <*> commandOptsParser) commandOptsInfo
     commandOptsParser = CommandOptions <$> fileNameParser <*> userNameParser <*> upperCaseParser
     commandOptsInfo = fullDesc <> progDesc "Command line sample program"
 
-getMessage :: IO String
-getMessage = do
-  putStrLn "What message do you want in the file?"
-  getLine
+getMessage :: Handle -> Handle -> IO String
+getMessage inHandle outHandle = do
+  hPutStrLn outHandle "What message do you want in the file?"
+  hGetLine inHandle
 
-getRepetitions :: IO Int
-getRepetitions = do
-  putStrLn "How many times should it be repeated?"
-  getNumber
+getRepetitions :: Handle -> Handle -> IO Int
+getRepetitions inHandle outHandle = do
+  hPutStrLn outHandle "How many times should it be repeated?"
+  getNumber inHandle outHandle
 
-getNumber :: IO Int
-getNumber = do
-  input <- getLine
+getNumber :: Handle -> Handle -> IO Int
+getNumber inHandle outHandle = do
+  input <- hGetLine inHandle 
   case readMaybe input of
     Nothing -> do
-      putStrLn "Sorry, that isn't a valid number. Please enter a number."
-      getNumber 
+      hPutStrLn outHandle "Sorry, that isn't a valid number. Please enter a number."
+      getNumber inHandle outHandle
     Just i -> return i
 
-runCLI :: CommandOptions -> IO ()
-runCLI commandOptions = do
+runCLI :: Handle -> Handle -> CommandOptions -> IO ()
+runCLI inHandle outHandle commandOptions = do
   let file = fileName commandOptions
   let user = userName commandOptions
   let uppercase = isUpperCase commandOptions
-  message <- getMessage 
-  reps <- getRepetitions 
+  message <- getMessage inHandle outHandle
+  reps <- getRepetitions inHandle outHandle
   writeFile file (fileContents user message reps uppercase)
 
 fileContents :: String -> String -> Int -> Bool -> String
@@ -66,5 +67,5 @@ fileContents user message repetitions uppercase = unlines $
 main :: IO ()
 main = do
   options <- parseOptions
-  runCLI options
+  runCLI stdin stdout options
 
