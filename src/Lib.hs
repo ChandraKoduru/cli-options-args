@@ -1,12 +1,14 @@
-module Main where
+module Lib 
+  (parseOptions
+  , runCLI)
+where
 
 import Text.Read (readMaybe)
 import Data.Char (toUpper)
-import System.IO (writeFile)
 import Data.Semigroup ((<>))
 import Options.Applicative (execParser, info, helper, Parser, fullDesc, 
   progDesc, short, metavar, flag, argument, str, option)
-import System.IO (Handle, stdin, stdout, hPutStrLn, hGetLine)
+import System.IO (writeFile, Handle, hPutStrLn, hGetLine)
 
 data CommandOptions = CommandOptions
   { fileName :: FilePath
@@ -63,9 +65,3 @@ fileContents user message repetitions uppercase = unlines $
     finalMessage = if uppercase 
                    then map toUpper message
                    else message
-
-main :: IO ()
-main = do
-  options <- parseOptions
-  runCLI stdin stdout options
-
