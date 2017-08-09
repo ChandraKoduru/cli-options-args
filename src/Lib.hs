@@ -1,5 +1,6 @@
 module Lib 
   (parseOptions
+  , CommandOptions(CommandOptions)
   , runCLI)
 where
 

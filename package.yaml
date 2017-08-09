@@ -11,7 +11,7 @@ ghc-options:
 dependencies: 
   - base
   - optparse-applicative
-
+  - HUnit
 library:
   source-dirs: src
   exposed-modules: 

@@ -1,0 +1,2 @@
+What message do you want in the file?
+How many times should it be repeated?

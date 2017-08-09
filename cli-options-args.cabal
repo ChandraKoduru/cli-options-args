@@ -15,6 +15,7 @@ library
   build-depends:
       base
     , optparse-applicative
+    , HUnit
   exposed-modules:
       Lib
   other-modules:
@@ -30,6 +31,7 @@ executable cli-options-args
   build-depends:
       base
     , optparse-applicative
+    , HUnit
     , cli-options-args
 
 test-suite options-test
@@ -41,5 +43,6 @@ test-suite options-test
   build-depends:
       base
     , optparse-applicative
+    , HUnit
     , cli-options-args
   default-language: Haskell2010
