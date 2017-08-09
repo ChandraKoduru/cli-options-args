@@ -15,7 +15,6 @@ library
   build-depends:
       base
     , optparse-applicative
-    , HUnit
   exposed-modules:
       Lib
   other-modules:
@@ -31,18 +30,18 @@ executable cli-options-args
   build-depends:
       base
     , optparse-applicative
-    , HUnit
     , cli-options-args
 
-test-suite options-test
+test-suite test1
   type: exitcode-stdio-1.0
   main-is: Test.hs
   hs-source-dirs:
-      test
-  ghc-options: -Wall -Werror -Wno-unused-matches -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-import-lists -threaded -rtsopts -with-rtsopts=-N
+      test/test1
+  ghc-options: -Wall -Werror -Wno-unused-matches -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-import-lists
   build-depends:
       base
     , optparse-applicative
-    , HUnit
     , cli-options-args
+    , HUnit
+    , filepath
   default-language: Haskell2010
